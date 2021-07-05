@@ -46,71 +46,24 @@ namespace Urna.Controllers
                     {
                         ListaCandidato.Add(item);
                     }
-
-                    //foreach (var item in resultCandidato)
-                    //{
-                    //    List<SelectListItem> legendas;
-                    //    legendas = ite.Select(c => new SelectListItem()
-                    //    {
-                    //        Text = c.NomeLegenda.ToUpper(),
-                    //        Value = c.IdLegenda.ToString()
-                    //    }).ToList();
-                    //}
-                   
-
                 }
             }
-
-
-            //List<DtoLegenda> ListaLegenda = new List<DtoLegenda>();
-            //legenda.IdLegenda = 13;
-            //legenda.NomeLegenda = "PT";
-            //DtoLegenda legenda2 = new DtoLegenda();
-            //legenda2.IdLegenda = 45;
-            //legenda2.NomeLegenda = "PSDB";
-
-            //ListaLegenda.Add(legenda);
-            //ListaLegenda.Add(legenda2);
-
-            //List<SelectListItem> legendas;
-            //legendas = ListaLegenda.Select(c => new SelectListItem()
-            //{
-            //    Text = c.NomeLegenda.ToUpper(),
-            //    Value = c.IdLegenda.ToString()
-            //}).ToList();
-
-            //ViewBag.ListaCandidato = ListaCandidato;
-            //ViewBag.ListaLegenda = legendas;
-
-
-
-
-            ////List<DtoCandidato> ListaCandidato = new List<DtoCandidato>();
-
-            //DtoCandidato candidato = new DtoCandidato();
-            //candidato.IdCandidato = "45";
-            //candidato.NomeCandidato = "Pedrinho";
-            //candidato.ViceCandidato = "Paulinho";
-            //candidato.Legenda = "PSDB";
-            //DtoCandidato candidato2 = new DtoCandidato();
-            //candidato2.IdCandidato = "13";
-            //candidato2.NomeCandidato = "Cleber";
-            //candidato2.ViceCandidato = "Pedrinho";
-            //candidato2.Legenda = "PT";
-
-            //ListaCandidato.Add(candidato);
-            //ListaCandidato.Add(candidato2);
-
             List<DtoLegenda> ListaLegenda = new List<DtoLegenda>();
-            DtoLegenda legenda = new DtoLegenda();
-            legenda.IdLegenda = 13;
-            legenda.NomeLegenda = "PT";
-            DtoLegenda legenda2 = new DtoLegenda();
-            legenda2.IdLegenda = 45;
-            legenda2.NomeLegenda = "PSDB";
 
-            ListaLegenda.Add(legenda);
-            ListaLegenda.Add(legenda2);
+            var DtoLegenda1 = new DtoLegenda(13, "PT");
+            var DtoLegenda2 = new DtoLegenda(45, "PSDB");
+            var DtoLegenda3 = new DtoLegenda(33, "PSOL");
+            var DtoLegenda4 = new DtoLegenda(22, "PSL");
+            var DtoLegenda5 = new DtoLegenda(15, "P2");
+            var DtoLegenda6 = new DtoLegenda(18, "P1");
+
+            ListaLegenda.Add(DtoLegenda1);
+            ListaLegenda.Add(DtoLegenda2);
+            ListaLegenda.Add(DtoLegenda3);
+            ListaLegenda.Add(DtoLegenda4);
+            ListaLegenda.Add(DtoLegenda5);
+            ListaLegenda.Add(DtoLegenda6);
+
 
             List<SelectListItem> legendas;
             legendas = ListaLegenda.Select(c => new SelectListItem()
@@ -135,7 +88,7 @@ namespace Urna.Controllers
                 {
                     throw new HttpRequestException(getLegenda.ToString());
                 }
-                var legenda = JsonConvert.DeserializeObject<DtoGetCandidato>(await getLegenda.Content.ReadAsStringAsync());
+                var legenda = JsonConvert.DeserializeObject<DtoCandidato>(await getLegenda.Content.ReadAsStringAsync());
                 if (legenda != null)
                 {
                     return false;

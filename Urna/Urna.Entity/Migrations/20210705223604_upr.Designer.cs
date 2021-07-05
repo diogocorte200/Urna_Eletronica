@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Urna.Entity.Context;
 
 namespace Urna.Entity.Migrations
 {
     [DbContext(typeof(UrnaContext))]
-    partial class UrnaContextModelSnapshot : ModelSnapshot
+    [Migration("20210705223604_upr")]
+    partial class upr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,7 @@ namespace Urna.Entity.Migrations
                     b.Property<string>("NomeCandidato")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ViceCandidato")
+                    b.Property<string>("NomeVice")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

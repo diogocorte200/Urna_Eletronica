@@ -35,8 +35,8 @@ namespace Urna.Domain.Service
             Candidato result = new Candidato()
             {
                 Id = Guid.NewGuid(),
-                NomeCompleto = candidato.NomeCandidato,
-                NomeVice = candidato.ViceCandidato,
+                NomeCandidato = candidato.NomeCandidato,
+                ViceCandidato = candidato.ViceCandidato,
                 DataRegistro = DateTime.Now,
                 Legenda = Convert.ToInt32(candidato.Legenda)
             };
@@ -95,9 +95,9 @@ namespace Urna.Domain.Service
             {
                 var lista = new CandidatoModel();
                 lista.Id = elem.Id;
-                lista.NomeCompleto = elem.NomeCompleto;
+                lista.NomeCandidato = elem.NomeCandidato;
                 lista.Legenda = elem.Legenda.ToString();
-                lista.ViceCandidato = elem.NomeVice;
+                lista.ViceCandidato = elem.ViceCandidato;
                 candidatos.Add(lista);
             }
             return candidatos.ToList();

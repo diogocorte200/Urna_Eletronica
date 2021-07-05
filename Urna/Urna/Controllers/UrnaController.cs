@@ -43,7 +43,7 @@ namespace Urna.Controllers
                 {
                     throw new HttpRequestException(getCandidato.ToString());
                 }
-                var IdCandidato = JsonConvert.DeserializeObject<DtoGetCandidato>(await getCandidato.Content.ReadAsStringAsync());
+                var IdCandidato = JsonConvert.DeserializeObject<DtoLegendas>(await getCandidato.Content.ReadAsStringAsync());
                 if (IdCandidato == null)
                 {
                     return false;

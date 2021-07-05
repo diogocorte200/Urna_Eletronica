@@ -7,9 +7,10 @@ namespace Urna.Model
 {
     public class DtoLegenda
     {
-        public DtoLegenda()
+        public DtoLegenda(int idLegenda, string nomeLegenda)
         {
-
+            IdLegenda = idLegenda;
+            NomeLegenda = nomeLegenda;
         }
         public int IdLegenda { get; set; }
         

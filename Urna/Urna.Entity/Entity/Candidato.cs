@@ -8,8 +8,8 @@ namespace Urna.Entity.Entity
 {
     public class Candidato : BaseEntity
     {
-        public string NomeCompleto { get; set; }
-        public string NomeVice { get; set; }
+        public string NomeCandidato { get; set; }
+        public string ViceCandidato { get; set; }
         public DateTime DataRegistro { get; set; }
         [Key]
         public int Legenda { get; set; }

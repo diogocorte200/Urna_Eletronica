@@ -5,12 +5,16 @@ using System.Threading.Tasks;
 
 namespace Urna.Model
 {
-    public class DtoGetCandidato
+    public class DtoLegendas
     {
         public Guid Id { get; set; }
-        public string NomeCompleto { get; set; }
-        public string NomeVice { get; set; }
-        public DateTime DataRegistro { get; set; }
+        public string NomeCandidato { get; set; }
+        public string ViceCandidato { get; set; }
         public int Legenda { get; set; }
+
+        public DtoLegendas()
+        {
+
+        }
     }
 }

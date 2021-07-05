@@ -29,6 +29,7 @@ $('.votacao').keyup(function () {
             url: '/BuscarCandidato/' + parseInt(legenda),
             method: 'POST',
             success: function (data) {
+                console.log(data);
                 $('#nomeCandidato').html(data.nomeCandidato + '<p class="text-muted">Vice: ' + data.viceCandidato + '</p>');
                 $('#legendaCandidato').html(data.legenda);
                 $('#contentCandidato').fadeIn();
