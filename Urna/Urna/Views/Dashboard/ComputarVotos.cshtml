@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Urna.Model.DtoApurarVotos>
+
+@{
+    ViewData["Title"] = "ComputarVotos";
+}
+
+<div class="row justify-content-md-center">
+    <div class="col-md-10">
+        <h2 class="text-monospace">Votos computados</h2>
+        <hr />
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Candidato</th>
+                    <th scope="col">Vice</th>
+                    <th scope="col">Partido</th>
+                    <th scope="col">Quantidade de Votos</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var candidato in ViewBag.ListaVotosApurados)
+                {
+                    <tr>
+                        <td>
+                            @candidato.NomeCompleto
+                        </td>
+                        <td>
+                            @candidato.ViceCandidato
+                        </td>
+                        <td>
+                            @candidato.Legenda
+                        </td>
+                        <td>
+                            <p class="font-weight-bold">@candidato.QtdVotos</p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

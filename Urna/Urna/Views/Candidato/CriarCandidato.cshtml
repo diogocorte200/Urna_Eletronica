@@ -1,0 +1,72 @@
+﻿@model Urna.Model.DtoCandidato
+
+@{
+    ViewData["Title"] = "CriarCandidato";
+}
+
+<div class="row justify-content-md-center">
+    <div class="col-md-10">
+        <div class="alert" id="alertCandidato" role="alert"></div>
+        <form id="criarCandidato" name="criarCandidato">
+            <h2 class="text-monospace">Novo candidato</h2>
+            <hr />
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="nomeCompleto" class="control-label">Nome do Candidato</label>
+                        <input id="nomeCompleto" name="nome" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="viceCandidato" class="control-label">Nome do vice</label>
+                        <input id="viceCandidato" name="vice" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="legenda" class="control-label">Partido</label>
+                        <!--<input id="legenda" name="legenda" class="form-control" />-->
+                        @Html.DropDownList("IdLegenda", (IEnumerable<SelectListItem>)ViewBag.ListaLegenda, "", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button id="addCandidato" class="btn btn-success">ADICIONAR</button>
+            </div>
+        </form>
+        <h2 class="text-monospace mt-4">
+            Candidatos já cadastrados
+            <button id="novoCandidato" class="btn btn-outline-info float-right">NOVO CANDIDATO</button>
+        </h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Vice</th>
+                    <th scope="col">Legenda</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var candidato in ViewBag.ListaCandidato)
+                {
+                    <tr>
+                        <td>
+                            @candidato.NomeCompleto
+                        </td>
+                        <td>
+                            @candidato.ViceCandidato
+                        </td>
+                        <td>
+                            @candidato.Legenda
+                        </td>
+                        <td>
+                            <a id="deletarCandidato" onclick="deletarCandidato(@candidato.IdCandidato)">&#x274C;</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
