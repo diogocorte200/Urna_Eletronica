@@ -35,7 +35,7 @@ namespace Urna.Domain.Service
             Candidato result = new Candidato()
             {
                 Id = Guid.NewGuid(),
-                NomeCompleto = candidato.NomeCompleto,
+                NomeCompleto = candidato.NomeCandidato,
                 NomeVice = candidato.ViceCandidato,
                 DataRegistro = DateTime.Now,
                 Legenda = Convert.ToInt32(candidato.Legenda)
@@ -43,10 +43,10 @@ namespace Urna.Domain.Service
 
             return result;
         }
-        
+
         public async Task<RetornoControllerViewModel<ExibicaoMensagemViewModel, Guid>> AdicionarCandidato(CandidatoCreateModel candidato)
         {
-            var candidatoExistente = await BuscarCandidatoPorLegenda(candidato.Legenda);
+            var candidatoExistente = await BuscarCandidatoPorLegenda(Convert.ToInt32(candidato.Legenda));
 
             if (candidatoExistente != null)
             {
@@ -57,7 +57,7 @@ namespace Urna.Domain.Service
             try
             {
                 var candidatoInserir = await ModelarCandidato(candidato);
-                var entityCandidato= candidatoInserir;
+                var entityCandidato = candidatoInserir;
 
                 _candidatoRepository.Add(entityCandidato);
                 _candidatoRepository.Save();
@@ -78,13 +78,30 @@ namespace Urna.Domain.Service
 
             if (result == null)
                 throw new Exception("Candidato não encontrado.");
-            
+
             _candidatoRepository.Remove(result);
             _candidatoRepository.Save();
 
             return idCandidato;
         }
 
+
+        public async Task<List<CandidatoModel>> ListarCandidatos()
+        {
+            var CandidatosAtivos = _candidatoRepository.GetAll();
+
+            List<CandidatoModel> candidatos = new List<CandidatoModel>();
+            foreach (var elem in CandidatosAtivos)
+            {
+                var lista = new CandidatoModel();
+                lista.Id = elem.Id;
+                lista.NomeCompleto = elem.NomeCompleto;
+                lista.Legenda = elem.Legenda.ToString();
+                lista.ViceCandidato = elem.NomeVice;
+                candidatos.Add(lista);
+            }
+            return candidatos.ToList();
+        }
         public async Task<Candidato> BuscarCandidatoPorLegenda(int legenda)
         {
             var candidato = _candidatoRepository.Find(c => c.Legenda == legenda).SingleOrDefault();

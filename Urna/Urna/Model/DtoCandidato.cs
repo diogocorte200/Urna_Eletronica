@@ -7,7 +7,11 @@ namespace Urna.Model
 {
     public class DtoCandidato
     {
-        public string NomeCompleto{ get; set; }
+        //public string NomeCandidato { get; set; }
+        //public string ViceCandidato { get; set; }
+        //public string Legenda { get; set; }
+        public string IdCandidato { get; set; }
+        public string NomeCandidato { get; set; }
         public string ViceCandidato { get; set; }
         public string Legenda { get; set; }
 

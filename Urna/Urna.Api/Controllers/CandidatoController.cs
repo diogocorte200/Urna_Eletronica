@@ -42,6 +42,19 @@ namespace Urna.Controllers
             return Ok(candidatoResposta);
         }
 
+        [HttpGet("Listar")]
+        public async Task<IActionResult> ListarTodas()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var candidatos = await _candidato.ListarCandidatos();
+
+            return Ok(candidatos);
+        }
+
         [HttpDelete("Deletar")]
         public async Task<IActionResult> DeletarCandidato(Guid idCandidato)
         {

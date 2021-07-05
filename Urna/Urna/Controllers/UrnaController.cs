@@ -34,8 +34,22 @@ namespace Urna.Controllers
         {
             using (var client = new HttpClient())
             {
-                //todo
-                //validar a legenda enviada ja esta cadastrada na base
+                if (voto.IdCandidato == null | voto.IdCandidato == "")
+                {
+                    return false;
+                }
+                var getCandidato = await client.GetAsync(_configuration["BaseUrl"] + "api/Candidato/legenda/" + voto.IdCandidato);
+                if (!getCandidato.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException(getCandidato.ToString());
+                }
+                var IdCandidato = JsonConvert.DeserializeObject<DtoGetCandidato>(await getCandidato.Content.ReadAsStringAsync());
+                if (IdCandidato == null)
+                {
+                    return false;
+                }
+                voto.IdCandidato = IdCandidato.Id.ToString();
+                var resultCandidato = await client.GetAsync(_configuration["BaseUrl"] + "api/Voto/ListarTodas");
                 var jsonContent = JsonConvert.SerializeObject(voto);
                 var contentString = new StringContent(jsonContent, Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(_configuration["BaseUrl"] + "api/Voto/Adicionar", contentString);

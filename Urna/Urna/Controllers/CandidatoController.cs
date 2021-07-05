@@ -25,19 +25,76 @@ namespace Urna.Controllers
             _logger = logger;
             _configuration = configuration;
         }
-
-        public IActionResult CriarCandidato()
+        public async Task<IActionResult> CriarCandidato()
         {
+
             List<DtoCandidato> ListaCandidato = new List<DtoCandidato>();
 
+            using (var client = new HttpClient())
+            {
+                var getCandidato = await client.GetAsync(_configuration["BaseUrl"] + "api/Candidato/Listar");
+                if (!getCandidato.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException(getCandidato.ToString());
+                }
+                var resultCandidato = JsonConvert.DeserializeObject<List<DtoCandidato>>(await getCandidato.Content.ReadAsStringAsync());
+                if (resultCandidato != null)
+                {
+
+
+                    foreach (var item in resultCandidato)
+                    {
+                        ListaCandidato.Add(item);
+                    }
+
+                    //foreach (var item in resultCandidato)
+                    //{
+                    //    List<SelectListItem> legendas;
+                    //    legendas = ite.Select(c => new SelectListItem()
+                    //    {
+                    //        Text = c.NomeLegenda.ToUpper(),
+                    //        Value = c.IdLegenda.ToString()
+                    //    }).ToList();
+                    //}
+                   
+
+                }
+            }
+
+
+            //List<DtoLegenda> ListaLegenda = new List<DtoLegenda>();
+            //legenda.IdLegenda = 13;
+            //legenda.NomeLegenda = "PT";
+            //DtoLegenda legenda2 = new DtoLegenda();
+            //legenda2.IdLegenda = 45;
+            //legenda2.NomeLegenda = "PSDB";
+
+            //ListaLegenda.Add(legenda);
+            //ListaLegenda.Add(legenda2);
+
+            //List<SelectListItem> legendas;
+            //legendas = ListaLegenda.Select(c => new SelectListItem()
+            //{
+            //    Text = c.NomeLegenda.ToUpper(),
+            //    Value = c.IdLegenda.ToString()
+            //}).ToList();
+
+            //ViewBag.ListaCandidato = ListaCandidato;
+            //ViewBag.ListaLegenda = legendas;
+
+
+
+
+            ////List<DtoCandidato> ListaCandidato = new List<DtoCandidato>();
+
             //DtoCandidato candidato = new DtoCandidato();
-            //candidato.IdCandidato = 45;
-            //candidato.NomeCompleto= "Pedrinho";
+            //candidato.IdCandidato = "45";
+            //candidato.NomeCandidato = "Pedrinho";
             //candidato.ViceCandidato = "Paulinho";
             //candidato.Legenda = "PSDB";
             //DtoCandidato candidato2 = new DtoCandidato();
-            //candidato2.IdCandidato = 13;
-            //candidato2.NomeCompleto = "Cleber";
+            //candidato2.IdCandidato = "13";
+            //candidato2.NomeCandidato = "Cleber";
             //candidato2.ViceCandidato = "Pedrinho";
             //candidato2.Legenda = "PT";
 
@@ -73,8 +130,17 @@ namespace Urna.Controllers
         {
             using (var client = new HttpClient())
             {
-                //todo
-                //validar a legenda enviada ja esta cadastrada na base
+                var getLegenda = await client.GetAsync(_configuration["BaseUrl"] + "api/Candidato/legenda/" + candidato.Legenda); ;
+                if (!getLegenda.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException(getLegenda.ToString());
+                }
+                var legenda = JsonConvert.DeserializeObject<DtoGetCandidato>(await getLegenda.Content.ReadAsStringAsync());
+                if (legenda != null)
+                {
+                    return false;
+                }
+
                 var jsonContent = JsonConvert.SerializeObject(candidato);
                 var contentString = new StringContent(jsonContent, Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(_configuration["BaseUrl"] + "api/Candidato/Adicionar", contentString);
@@ -118,7 +184,7 @@ namespace Urna.Controllers
             return View();
         }
         [HttpPost("BuscarCandidato/{legenda}")]
-        public async Task<DtoCandidato>  BuscarCandidato(int legenda)
+        public async Task<DtoCandidato> BuscarCandidato(int legenda)
         {
             using (var client = new HttpClient())
             {

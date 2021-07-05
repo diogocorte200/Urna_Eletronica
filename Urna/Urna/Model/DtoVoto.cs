@@ -8,7 +8,10 @@ namespace Urna.Model
         {
 
         }
-        public Guid IdCandidato { get; set; }
+        //public Guid IdCandidato { get; set; }
+        //public String NomeCompleto { get; set; }
+        public int IdVoto { get; set; }
+        public string IdCandidato { get; set; }
         public String NomeCompleto { get; set; }
 
     }
