@@ -71,10 +71,10 @@ namespace Urna.Domain.Service
             }
         }
 
-        public async Task<Guid> DeletarCandidato(Guid idCandidato)
+        public async Task<string> DeletarCandidato(string idCandidato)
         {
 
-            var result = _candidatoRepository.GetSingleOrDefault(x => x.Id == idCandidato);
+            var result = _candidatoRepository.GetSingleOrDefault(x => x.Id.ToString() ==  idCandidato);
 
             if (result == null)
                 throw new Exception("Candidato não encontrado.");

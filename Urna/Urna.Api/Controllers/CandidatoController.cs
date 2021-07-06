@@ -55,15 +55,15 @@ namespace Urna.Controllers
             return Ok(candidatos);
         }
 
-        [HttpDelete("Deletar")]
-        public async Task<IActionResult> DeletarCandidato(Guid idCandidato)
+        [HttpDelete("Deletar/{id}")]
+        public async Task<IActionResult> DeletarCandidato(string id)
         {
-            if (idCandidato == null)
+            if (id == null)
             {
                 return BadRequest();
             }
 
-            var resultado = await _candidato.DeletarCandidato(idCandidato);
+            var resultado = await _candidato.DeletarCandidato(id);
 
             return Ok();
         }

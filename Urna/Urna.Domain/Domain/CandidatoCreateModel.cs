@@ -9,7 +9,7 @@ namespace Urna.Domain.Domain
     {
         public string NomeCandidato { get; set; }
         public string ViceCandidato { get; set; }
-        public string Legenda { get; set; }
+        public int Legenda { get; set; }
 
     }
 }

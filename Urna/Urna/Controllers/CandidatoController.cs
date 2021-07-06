@@ -110,11 +110,11 @@ namespace Urna.Controllers
         }
 
         [HttpPost("DeletarCandidato/{id}")]
-        public async Task<bool> DeletarCandidato(int legendaId)
+        public async Task<bool> DeletarCandidato(string id)
         {
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync(_configuration["BaseUrl"] + "api/Candidato/Deletar/" + legendaId);
+                var response = await client.DeleteAsync(_configuration["BaseUrl"] + "api/Candidato/Deletar/" + id);
 
                 if (response.IsSuccessStatusCode)
                 {

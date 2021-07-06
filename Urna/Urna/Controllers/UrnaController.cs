@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
@@ -34,9 +33,20 @@ namespace Urna.Controllers
         {
             using (var client = new HttpClient())
             {
-                if (voto.IdCandidato == null | voto.IdCandidato == "")
+                if (voto.IdCandidato == "" && voto.IdVoto == 0 && voto.NomeCompleto == null)
                 {
-                    return false;
+                    voto.IdCandidato = "53A84594-BF35-4D08-84D8-A26D4E688959";
+                    var jsonContentBranco = JsonConvert.SerializeObject(voto);
+                    var contentStringBranco = new StringContent(jsonContentBranco, Encoding.UTF8, "application/json");
+                    var responseBranco = await client.PostAsync(_configuration["BaseUrl"] + "api/Voto/Adicionar", contentStringBranco);
+                    if (responseBranco.IsSuccessStatusCode)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 var getCandidato = await client.GetAsync(_configuration["BaseUrl"] + "api/Candidato/legenda/" + voto.IdCandidato);
                 if (!getCandidato.IsSuccessStatusCode)
