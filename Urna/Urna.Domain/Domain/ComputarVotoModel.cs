@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Urna.Model
+namespace Urna.Domain.Domain
 {
-    public class ModelGetCanditato
+    public class ComputarVotoModel
     {
-        public string IdCandidato { get; set; }
         public string NomeCompleto { get; set; }
         public string ViceCandidato { get; set; }
         public string Legenda { get; set; }
-
-        public ModelGetCanditato()
-        {
-
-        }
+        public int QtdVotos { get; set; }
     }
 }

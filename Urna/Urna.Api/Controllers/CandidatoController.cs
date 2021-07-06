@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 using Urna.Domain.Domain;
 using Urna.Domain.Service;
@@ -62,9 +61,11 @@ namespace Urna.Controllers
             {
                 return BadRequest();
             }
-
-            var resultado = await _candidato.DeletarCandidato(id);
-
+            //Em ambiente de produção, isso nao existe, é apenas uma validação, para nao excluir o voto Branco.
+            if (id != "9f2fb9fc-25cf-4afa-85ec-ec94e3357619")
+            {
+                var resultado = await _candidato.DeletarCandidato(id);
+            }
             return Ok();
         }
 

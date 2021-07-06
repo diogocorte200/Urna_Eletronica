@@ -4,7 +4,6 @@ using System.Text;
 
 namespace Urna.Domain.Domain
 {
-
     public class CandidatoCreateModel
     {
         public string NomeCandidato { get; set; }

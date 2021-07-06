@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Urna.Domain.Domain;
 using Urna.Domain.Service.Generic;
@@ -17,9 +16,10 @@ namespace Urna.Domain.Service
                                               where Te : Voto
     {
         IVotoRepository _votoRepository;
+        ICandidatoRepository _candidatoRepository;
 
         public VotoService(IUnitOfWork unitOfWork, IMapper mapper,
-                             IVotoRepository votoRepository)
+                             IVotoRepository votoRepository, ICandidatoRepository candidatoRepository)
         {
             if (_unitOfWork == null)
                 _unitOfWork = unitOfWork;
@@ -28,8 +28,10 @@ namespace Urna.Domain.Service
 
             if (_votoRepository == null)
                 _votoRepository = votoRepository;
-        }
 
+            if (_candidatoRepository == null)
+                _candidatoRepository = candidatoRepository;
+        }
 
         public async Task<Voto> ModelarVoto(VotoModel voto)
         {
@@ -71,6 +73,36 @@ namespace Urna.Domain.Service
 
 
                 return retornoController;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<ComputarVotoModel>> ComputarVotos()
+        {
+            var votosComputados = new List<ComputarVotoModel>();
+            var candidatos = _candidatoRepository.GetAll();
+
+            try
+            {
+                foreach (var candidato in candidatos)
+                {
+                    var votosCandidato = _votoRepository.Find(v => v.IdCandidato == candidato.Id);
+
+                    var votoComputado = new ComputarVotoModel
+                    {
+                        NomeCompleto = candidato.NomeCandidato,
+                        ViceCandidato = candidato.ViceCandidato,
+                        Legenda = candidato.Legenda.ToString(),
+                        QtdVotos = votosCandidato.Count()
+                    };
+
+                    votosComputados.Add(votoComputado);
+                }
+
+                return votosComputados;
             }
             catch (Exception e)
             {

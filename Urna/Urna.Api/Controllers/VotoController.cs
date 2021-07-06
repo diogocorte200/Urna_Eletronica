@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Urna.Domain.Domain;
 using Urna.Domain.Service;
@@ -55,6 +52,19 @@ namespace Urna.Controllers
             var votos = await _voto.ListarVotos();
 
             return Ok(votos);
+        }
+
+        [HttpGet("ComputarVotos")]
+        public async Task<IActionResult> ComputarVotos()
+        {
+            var votosComputados = await _voto.ComputarVotos();
+
+            if (votosComputados == null)
+            {
+                return StatusCode(500, "Erro ao adicionar voto!");
+            }
+
+            return Ok(votosComputados);
         }
     }
 }

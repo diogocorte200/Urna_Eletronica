@@ -160,7 +160,6 @@ $('#addCandidato').click(function (e) {
 
 });
 function deletarCandidato(id) {
-    alert(id);
     $.ajax({
         url: '/DeletarCandidato/' + id,
         method: 'POST',

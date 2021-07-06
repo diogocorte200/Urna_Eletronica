@@ -35,7 +35,7 @@ namespace Urna.Controllers
             {
                 if (voto.IdCandidato == "" && voto.IdVoto == 0 && voto.NomeCompleto == null)
                 {
-                    voto.IdCandidato = "53A84594-BF35-4D08-84D8-A26D4E688959";
+                    voto.IdCandidato = "9f2fb9fc-25cf-4afa-85ec-ec94e3357619";
                     var jsonContentBranco = JsonConvert.SerializeObject(voto);
                     var contentStringBranco = new StringContent(jsonContentBranco, Encoding.UTF8, "application/json");
                     var responseBranco = await client.PostAsync(_configuration["BaseUrl"] + "api/Voto/Adicionar", contentStringBranco);

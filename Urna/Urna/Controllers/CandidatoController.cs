@@ -127,15 +127,6 @@ namespace Urna.Controllers
             }
         }
 
-        public IActionResult ListarCandidato()
-        {
-            return View();
-        }
-
-        public IActionResult ExcluirCandidato()
-        {
-            return View();
-        }
         [HttpPost("BuscarCandidato/{legenda}")]
         public async Task<DtoCandidato> BuscarCandidato(int legenda)
         {
